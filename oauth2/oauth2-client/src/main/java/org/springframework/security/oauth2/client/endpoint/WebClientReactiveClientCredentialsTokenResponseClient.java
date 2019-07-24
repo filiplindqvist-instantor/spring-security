@@ -49,8 +49,15 @@ import static org.springframework.security.oauth2.core.web.reactive.function.OAu
  * @see <a target="_blank" href="https://tools.ietf.org/html/rfc6749#section-4.1.4">Section 4.1.4 Access Token Response (Authorization Code Grant)</a>
  */
 public class WebClientReactiveClientCredentialsTokenResponseClient implements ReactiveOAuth2AccessTokenResponseClient<OAuth2ClientCredentialsGrantRequest> {
-	private WebClient webClient = WebClient.builder()
-			.build();
+	private WebClient webClient;
+
+    public WebClientReactiveClientCredentialsTokenResponseClient() {
+        this(WebClient.builder().build());
+    }
+
+    public WebClientReactiveClientCredentialsTokenResponseClient(WebClient webClient) {
+        this.webClient = webClient;
+    }
 
 	@Override
 	public Mono<OAuth2AccessTokenResponse> getTokenResponse(OAuth2ClientCredentialsGrantRequest authorizationGrantRequest) {
